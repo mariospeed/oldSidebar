@@ -1,0 +1,3289 @@
+<!doctype html>
+
+
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+      <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <!-- THIS LINE -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<style>
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+
+
+
+  text-align: left;
+  outline: none;
+
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+
+
+</style>
+
+
+
+
+
+<button style="text-align:center;"class="accordion btn btn-default" ><i class="fa fa-bars"></i></button>
+<div class="panel">
+
+<div  style="font-size:0.8em">
+
+<div id="SMB1">
+<p>Super Mario Bros. <a class="hoverNow" id="SMB1Click" onclick="SMB1AnyF(); SMB1WarplessF()"><i class='fas fa-angle-down'></i></a>  <br /><a href="https://www.speedrun.com/smb1"><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Bros."><i class="fab fa-twitch"></i></a> <a href="https://discordapp.com/invite/dcxUEMt"><i class='fab fa-discord'></i></a></p>
+<p id="SMB1Any"></p>
+<p id="SMB1Warpless"></p>
+<script>
+function SMB1AnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/smb1/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SMB1Any").innerHTML = "<a href=" + link +">" + "Any%: "+ minutes + ":" + seconds.toFixed(3) + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+ 
+$(document).ready(function() {
+  $("#SMB1Click").click(function() {
+    $("#SMB1Any").toggle();
+	$("#SMB1Warpless").toggle();
+  });
+});
+}
+function SMB1WarplessF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/smb1/category/Warpless?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+			success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("SMB1Warpless").innerHTML = "<a href=" + link +">" + "Warpless: " + minutes + ":" + seconds.toFixed(3) +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+
+</script>
+
+
+</div>
+
+<div id="SMBLL">
+<p>Super Mario Bros.: The Lost Levels <br /><a href="https://www.speedrun.com/smbtll"><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Bros.:%20The%20Lost%20Levels"><i class="fab fa-twitch"></i></a> <a href="https://discordapp.com/invite/dcxUEMt"><i class='fab fa-discord'></i></a></p>
+</div>
+
+<div id="SMB2">
+<p>Super Mario Bros. 2 <br /><a href="https://www.speedrun.com/smb2"><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Bros.%202"><i class="fab fa-twitch"></i></a> <a href="https://discord.gg/HAmY55K"><i class='fab fa-discord'></i></a></p>
+</div>
+
+<p>Super Mario Bros. 3 <a href="https://www.speedrun.com/smb3"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Bros.%203"><i class="fab fa-twitch"></i></a> <a href="https://discord.gg/HAmY55K"><i class='fab fa-discord'></i></a></p> 
+
+<p>Super Mario World <a href="https://www.speedrun.com/smw"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20World"><i class="fab fa-twitch"></i></a> <a href="https://discordapp.com/invite/0SkVJ6hE2KFkKlak"><i class='fab fa-discord'></i></a></p>
+
+<div id="SMAS">
+<p>Super Mario All-Stars <a class="hoverNow" id="SMASClick" onclick="SMASAnyF(); SMASWarplessF(); SMAS100F();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/smas"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20All-Stars"><i class="fab fa-twitch"></i></a> <a href="https://discordapp.com/invite/dcxUEMt"><i class='fab fa-discord'></i></a></p>
+<p id="SMASAny"></p>
+<p id="SMASWarpless"></p>
+<p id="SMAS100"></p>
+
+
+<script>
+function SMASAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/smas/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SMASAny").innerHTML = "<a href=" + link +">" + "Any% All Four Games: "+ minutes + ":" + seconds + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+ 
+$(document).ready(function() {
+  $("#SMASClick").click(function() {
+    $("#SMASAny").toggle();
+	$("#SMASWarpless").toggle();
+	$("#SMAS100").toggle();
+  });
+});
+}
+function SMASWarplessF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/smas/category/Warpless?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+			success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("SMASWarpless").innerHTML = "<a href=" + link +">" + "Warpless: " + hours + ":0" + minNew1 + ":0" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function SMAS100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/smas/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+			success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("SMAS100").innerHTML = "<a href=" + link +">" + "100%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+</script>
+
+</div>
+
+<div id="YI">
+<p>SMW2: Yoshi's Island <a class="hoverNow" id="YIClick"onclick="YIAnyF(); YIWarpsF(); YIWarplessF(); YI100F()"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/yi"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20World%202:%20Yoshi's%20Island"><i class="fab fa-twitch"></i></a> <a href="http://discord.yoshi.science/"><i class='fab fa-discord'></i></a></p>
+<p id="YIAny"></p>
+<p id="YIWarps"></p>
+<p id="YIWarpless"></p>
+<p id="YI100"></p>
+<script>
+function YIAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/yi/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("YIAny").innerHTML = "<a href=" + link +">" + "Any% Credits Warp: 0"+ minutes + ":" + seconds.toFixed(2) + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+ $(document).ready(function() {
+  $("#YIClick").click(function() {
+    $("#YIAny").toggle();
+	$("#YIWarps").toggle();
+	$("#YIWarpless").toggle();
+		$("#YI100").toggle();
+  });
+});
+}
+
+
+function YIWarpsF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/yi/category/Warps?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+			success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("YIWarps").innerHTML = "<a href=" + link +">" + "Warps: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function YIWarplessF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/yi/category/Warpless?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+			success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("YIWarpless").innerHTML = "<a href=" + link +">" + "Warpless: " + hours + ":" + minNew1 + ":0" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function YI100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/yi/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+			success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("YI100").innerHTML = "<a href=" + link +">" + "100%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+
+</script>
+
+</div>
+
+
+<div id="SML">
+<p>Super Mario Land  <a class="hoverNow" id="SMLClick" onclick="SMLAnyF(); SMLNHF();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/sml1"> <br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Land"><i class="fab fa-twitch"></i></a></p>
+<p id="SMLAny"></p>
+<p id="SMLNormalHard"></p>
+
+<script>
+function SMLAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sml1/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SMLAny").innerHTML = "<a href=" + link +">" + "Any% : "+ minutes + ":" + seconds + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+  $(document).ready(function() {
+  $("#SMLClick").click(function() {
+    $("#SMLAny").toggle();
+	$("#SMLNormalHard").toggle();
+  });
+});
+}
+function SMLNHF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sml1/category/Normal_%2B_Hard_Mode?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SMLNormalHard").innerHTML = "<a href=" + link +">" + "Normal + Hard Mode: "+ minutes + ":0" + seconds + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+ 
+}
+
+
+</script>
+
+
+</div>
+
+
+
+<div id="SML2">
+
+<p>SML2: 6 Golden Coins <a class="hoverNow" id="SML2Click" onclick="SML2AnyGF(); SML2AnyF(); SML2AllLevels();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/sml2"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Land%202:%206%20Golden%20Coins"><i class="fab fa-twitch"></i></a> <a href="https://discord.gg/Gdcnyur"><i class='fab fa-discord'></i></a></p>
+<p id="SML2Any"></p>
+<p id="SML2AnyG"></p>
+<p id="SML2All"></p>
+
+<script>
+function SML2AnyGF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sml2/category/Any_Glitchless?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SML2AnyG").innerHTML = "<a href=" + link +">" + "Any% Glitchless: "+ minutes + ":" + seconds.toFixed(2) + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+   $(document).ready(function() {
+  $("#SML2Click").click(function() {
+    $("#SML2Any").toggle();
+	$("#SML2AnyG").toggle();
+		$("#SML2All").toggle();
+  });
+});
+}
+function SML2AnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sml2/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SML2Any").innerHTML = "<a href=" + link +">" + "Any%: 0"+ minutes + ":" + seconds.toFixed(1) + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+}
+function SML2AllLevels() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sml2/category/All_Levels?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SML2All").innerHTML = "<a href=" + link +">" + "All Levels: "+ minutes + ":" + seconds.toFixed(1) + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+}
+</script>
+</div>
+
+
+
+<div id="SM64">
+<p><a href="https://mariospeed.github.io/sm64">Super Mario 64</a> <a class="hoverNow" id="SM64Click" onclick="SM6470StarFunction(); SM64120StarFunction(); SM6416StarFunction(); SM641StarFunction(); SM640StarFunction()"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/sm64"> <br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%2064"><i class="fab fa-twitch"></i></a> <a href="https://discord.gg/0Si1OtnB7Ylmwkwr"><i class='fab fa-discord'></i></a> </p>
+<p id="SM640Star"></p>
+<p id="SM641Star"></p>
+<p id="SM6416Star"></p>
+<p id="SM6470Star"></p>
+<p id="SM64120Star"></p>
+
+
+
+<script>
+function SM6470StarFunction() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/o1y9wo6q/category/7dgrrxk4?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+								document.getElementById("SM6470Star").innerHTML = "<a href=" + link +">" + "70 star: "+ minutes + ":" + seconds.toFixed(2) + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+    $(document).ready(function() {
+  $("#SM64Click").click(function() {
+	$("#SM640Star").toggle();
+	$("#SM641Star").toggle();
+	$("#SM6416Star").toggle();
+	$("#SM6470Star").toggle();
+		$("#SM64120Star").toggle();
+  });
+});
+}
+
+function SM64120StarFunction() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm64/category/120_Star?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("SM64120Star").innerHTML = "<a href=" + link +">" + "120 star: " + hours + ":" + minNew1 + ":" + seconds.toFixed(2) +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function SM6416StarFunction() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm64/category/16_Star?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SM6416Star").innerHTML = "<a href=" + link +">" + "16 star: "+ minutes + ":0" + seconds.toFixed(2) + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+}
+function SM641StarFunction() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm64/category/1_Star?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SM641Star").innerHTML = "<a href=" + link +">" + "1 star: "+ minutes + ":" + seconds.toFixed(2) + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+}
+function SM640StarFunction() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm64/category/0_Star?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+								document.getElementById("SM640Star").innerHTML = "<a href=" + link +">" + "0 star: "+ minutes + ":" + seconds.toFixed(2) + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+}
+</script>
+</div>
+
+
+
+<div id="SM64DS">
+<p>Super Mario 64 DS <a class="hoverNow" id="SM64DSClick" onclick="SM64DSAnyF(); SM64DS8StarF(); SM64DS50StarF(); SM64DS80StarF(); SM64DS150StarF();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/sm64ds"> <br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%2064%20DS"><i class="fab fa-twitch"></i></a> <a href="https://discord.gg/Dpg2cYH"><i class='fab fa-discord'></i></a></p>
+<p id="SM64DSAny"></p>
+<p id="SM64DS8Star"></p>
+<p id="SM64DS50Star"></p>
+<p id="SM64DS80Star"></p>
+<p id="SM64DS150Star"></p>
+<script>
+
+function SM64DSAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm64ds/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+								document.getElementById("SM64DSAny").innerHTML = "<a href=" + link +">" + "Any%: 0:"+ minutes + ":" + seconds + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+     $(document).ready(function() {
+  $("#SM64DSClick").click(function() {
+	$("#SM64DSAny").toggle();
+	$("#SM64DS8Star").toggle();
+	$("#SM64DS50Star").toggle();
+	$("#SM64DS80Star").toggle();
+		$("#SM64DS150Star").toggle();
+  });
+});
+}
+function SM64DS8StarF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm64ds/category/8_Star?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+								document.getElementById("SM64DS8Star").innerHTML = "<a href=" + link +">" + "8 star: 0:"+ minutes + ":" + seconds + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+}
+function SM64DS50StarF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm64ds/category/50_Star?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+								document.getElementById("SM64DS50Star").innerHTML = "<a href=" + link +">" + "50 star: 0:"+ minutes + ":" + seconds + " by " + name + " on " + date +"</a>";
+								
+
+							}
+				 });
+				 
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+
+
+            }
+ }); // Just an example
+}
+
+function SM64DS80StarF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm64ds/category/50_Star?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("SM64DS80Star").innerHTML = "<a href=" + link +">" + "80 star: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+
+function SM64DS150StarF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm64ds/category/150_Star?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+				document.getElementById("SM64DS150Star").innerHTML = "<a href=" + link +">" + "150 star: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+</script>
+
+</div>
+
+<div id="SMS">
+<p>Super Mario Sunshine <a class="hoverNow" id="SMSClick" onclick="SMSDisF(); SMSAnyF(); SMSAllEpisodesF(); SMS79F(); SMS96F(); SMS120F()"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/sms"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Sunshine"><i class="fab fa-twitch"></i></a> <a href="https://discordapp.com/invite/9dGJWEc"><i class='fab fa-discord'></i></a> <a href="https://twitter.com/SMSCommunity"><i class="fab fa-twitter"></i></a></p>
+<p id="SMSDis"></p>
+<p id="SMSAny"></p>
+<p id="SMSAllEpisodes"></p>
+<p id="SMS79"></p>
+<p id="SMS96"></p>
+<p id="SMS120"></p>
+
+
+<script>
+function SMSDisF(){
+document.getElementById("SMSDis").innerHTML = "Normal"
+}
+
+function SMSAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sms/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("SMSAny").innerHTML = "<a href=" + link +">" + "Any%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+      $(document).ready(function() {
+  $("#SMSClick").click(function() {
+	$("#SMSDis").toggle();
+	$("#SMSAny").toggle();
+	$("#SMSAllEpisodes").toggle();
+	$("#SMS79").toggle();
+	$("#SMS96").toggle();
+	$("#SMS120").toggle();
+  });
+  });
+}
+function SMSAllEpisodesF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sms/category/All_Episodes?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SMSAllEpisodes").innerHTML = "<a href=" + link +">" + "All Episodes: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function SMS79F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sms/category/79_Shines?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SMS79").innerHTML = "<a href=" + link +">" + "79 shines: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+function SMS96F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sms/category/96_Shines?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SMS96").innerHTML = "<a href=" + link +">" + "96 shines: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function SMS120F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sms/category/120_Shines?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SMS120").innerHTML = "<a href=" + link +">" + "120 shines: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+</script>
+</div>
+
+<p>Super Mario Galaxy  <a href="https://www.speedrun.com/smgalaxy"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Galaxy"><i class="fab fa-twitch"></i></a> <a href="https://discord.gg/0dEhnBwKhhgt1nWe"><i class='fab fa-discord'></i></a></p>
+
+
+<div id="SMG2">
+<p>Super Mario Galaxy 2 <a class="hoverNow" id="SMG2Click" onclick="SMG2AnyF(); SMSG2120F(); SMG2242F(); SMG2GreenF();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/smgalaxy2"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Galaxy%202"><i class="fab fa-twitch"></i></a> <a href="https://discordapp.com/invite/0dEhnBwKhhgt1nWe"><i class='fab fa-discord'></i></a></p>
+<p id="SMG2Any"></p>
+<p id="SMG2120"></p>
+<p id="SMG2242"></p>
+<p id="SMG2Green"></p>
+<script>
+
+
+function SMG2AnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/smgalaxy2/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 3;
+				var minNew1 = Math.abs(180 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+								var linkName = msg.data.twitch.uri;
+
+				document.getElementById("SMG2Any").innerHTML = "<a href=" + link +">" + "Any%: " + hours + ":0" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+      $(document).ready(function() {
+  $("#SMSClick").click(function() {
+	$("#SMSDis").toggle();
+	$("#SMSAny").toggle();
+	$("#SMSAllEpisodes").toggle();
+	$("#SMS79").toggle();
+	$("#SMS96").toggle();
+	$("#SMS120").toggle();
+  });
+  });
+}
+function SMSG2120F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/smgalaxy2/category/120_Stars?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 5;
+				var minNew1 = Math.abs(300 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SMG2120").innerHTML = "<a href=" + link +">" + "120 stars: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+ 
+       $(document).ready(function() {
+  $("#SMG2Click").click(function() {
+	$("#SMG2Any").toggle();
+	$("#SMG2120").toggle();
+	$("#SMG2242").toggle();
+	$("#SMG2Green").toggle();
+  });
+  });
+  
+  
+}
+
+function SMG2242F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/smgalaxy2/category/242_Stars?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 9;
+				var minNew1 = Math.abs(540 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SMG2242").innerHTML = "<a href=" + link +">" + "242 stars: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+function SMG2GreenF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/smgalaxy2/category/Green_Stars?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 3;
+				var minNew1 = Math.abs(180 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SMG2Green").innerHTML = "<a href=" + link +">" + "Green stars: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+</script>
+
+
+</div>
+
+<div id="NSMB">
+<p>New Super Mario Bros. <a class="hoverNow" id="NSMBClick" onclick="NSMBDisF(); NSMBAnyF(); NSMBCannonlessF(); NSMB100F(); NSMBNoPowerupsF();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/nsmbds"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/New%20Super%20Mario%20Bros."><i class="fab fa-twitch"></i></a> <a href="https://discordapp.com/invite/ffrZ97m"><i class='fab fa-discord'></i></a></p>
+<p id="NSMBDis"></p>
+<p id="NSMBAny"></p>
+<p id="NSMBCannonless"></p>
+<p id="NSMB100"></p>
+<p id="NSMBNoPowerups"></p>
+
+
+<script>
+function NSMBDisF(){
+document.getElementById("NSMBDis").innerHTML = "Official Releases";
+}
+
+function NSMBAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbds/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 0;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBAny").innerHTML = "<a href=" + link +">" + "Any%: " + minutes + ":" + seconds.toFixed(2) +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+      $(document).ready(function() {
+  $("#NSMBClick").click(function() {
+	$("#NSMBDis").toggle();
+	$("#NSMBAny").toggle();
+	$("#NSMBCannonless").toggle();
+	$("#NSMB100").toggle();
+	$("#NSMBNoPowerups").toggle();
+  });
+  });
+}
+function NSMBCannonlessF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbds/category/Cannonless?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 0;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBCannonless").innerHTML = "<a href=" + link +">" + "Cannonless: " + minutes + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function NSMB100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbds/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMB100").innerHTML = "<a href=" + link +">" + "100%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+function NSMBNoPowerupsF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbds/category/No_Powerups?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBNoPowerups").innerHTML = "<a href=" + link +">" + "No Powerups: " + minutes + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+</script>
+
+</div>
+
+<div id="NSMBWii">
+<p>New Super Mario Bros. Wii  <a class="hoverNow" id="NSMBWiiClick" onclick="NSMBWiiAnyF(); NSMBWiiCannonlessF(); "><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/nsmbw"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/New%20Super%20Mario%20Bros.%20Wii"><i class="fab fa-twitch"></i></a> <a href="https://discord.gg/0l2YoYVQZRigHY5M"><i class='fab fa-discord'></i></a></p>
+
+<p id="NSMBWiiAny"></p>
+<p id="NSMBWiiCannonless"></p>
+<p id="NSMBWii100"></p>
+
+<script>
+function NSMBWiiAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbw/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 0;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBWiiAny").innerHTML = "<a href=" + link +">" + "Any%: " + minutes + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+      $(document).ready(function() {
+  $("#NSMBWiiClick").click(function() {
+	$("#NSMBWiiAny").toggle();
+	$("#NSMBWiiCannonless").toggle();
+	$("#NSMBWii100").toggle();
+  });
+  });
+}
+function NSMBWiiCannonlessF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbw/category/Cannonless?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBWiiCannonless").innerHTML = "<a href=" + link +">" + "Cannonless: " + hours + ":" + minNew1 + ":0" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function NSMB100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbds/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMB100").innerHTML = "<a href=" + link +">" + "100%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+function NSMBNoPowerupsF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbds/category/No_Powerups?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBNoPowerups").innerHTML = "<a href=" + link +">" + "No Powerups: " + minutes + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+</script>
+</div>
+
+<div id="NSMB2">
+<p>New Super Mario Bros. 2 <a class="hoverNow" id="NSMB2Click" onclick="NSMB2AnyF(); NSMB2WarplessF(); NSMB2NoF(); NSMB2100F();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/nsmb2"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/New%20Super%20Mario%20Bros.%202"><i class="fab fa-twitch"></i></a> <a href="https://discordapp.com/invite/7tptgDr"><i class='fab fa-discord'></i></a></p>
+<p id="NSMB2Any"></p>
+<p id="NSMB2Warpless"></p>
+<p id="NSMB2No"></p>
+<p id="NSMB2100"></p>
+
+<script>
+function NSMB2AnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmb2/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 0;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMB2Any").innerHTML = "<a href=" + link +">" + "Any%: " + minutes + ":0" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+      $(document).ready(function() {
+  $("#NSMB2Click").click(function() {
+	$("#NSMB2Any").toggle();
+	$("#NSMB2Warpless").toggle();
+	$("#NSMB2No").toggle();
+	$("#NSMB2100").toggle();
+  });
+  });
+}
+function NSMB2WarplessF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmb2/category/Warpless?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 0;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMB2Warpless").innerHTML = "<a href=" + link +">" + "Warpless: " + minutes + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function NSMB2NoF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmb2/category/No_Secret_Exits?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMB2No").innerHTML = "<a href=" + link +">" + "No Secret Exits: " + minutes + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+function NSMB2100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmb2/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMB2100").innerHTML = "<a href=" + link +">" + "100%: " + hours+ ":"+minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+</script>
+
+</div>
+
+<div id="NSMBU">
+<p>New Super Mario Bros. U  <a class="hoverNow" id="NSMBUClick" onclick="NSMBUAnyF(); NSMBUAllCastlesF(); NSMBU100F();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/nsmbu"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/New%20Super%20Mario%20Bros.%20U"><i class="fab fa-twitch"></i></a> <a href="https://discordapp.com/invite/7tptgDr"><i class='fab fa-discord'></i></a></p>
+<p id="NSMBUAny"></p>
+<p id="NSMBUAllCastles"></p>
+<p id="NSMBU100"></p>
+
+<script>
+function NSMBUAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbu/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 0;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBUAny").innerHTML = "<a href=" + link +">" + "Any%: " + minutes + ":0" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+      $(document).ready(function() {
+  $("#NSMBUClick").click(function() {
+	$("#NSMBUAny").toggle();
+	$("#NSMBUAllCastles").toggle();
+	$("#NSMBU100").toggle();
+  });
+  });
+}
+function NSMBUAllCastlesF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbu/category/All_Castles?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBUAllCastles").innerHTML = "<a href=" + link +">" + "All castles: " + hours + 
+				":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function NSMBU100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbu/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 3;
+				var minNew1 = Math.abs(180 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBU100").innerHTML = "<a href=" + link +">" + "100%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+</script>
+
+</div>
+
+<div id="NSLU">
+<p>New Super Luigi U <a class="hoverNow" id="NSLUClick" onclick="NSLUDisF(); NSLUAnyF(); NSLUAllCastlesF();  NSLU100F();"><i class='fas fa-angle-down'></i></a>  <a href="https://www.speedrun.com/nslu"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/New%20Super%20Luigi%20U"><i class="fab fa-twitch"></i></a> <a href="https://discord.gg/VDfrMe7"><i class='fab fa-discord'></i></a></p>
+<p id="NSLUDis"></p>
+<p id="NSLUAny"></p>
+<p id="NSLUAllCastles"></p>
+<p id="NSLU100"></p>
+
+<script>
+function NSLUDisF(){
+document.getElementById("NSLUDis").innerHTML = "Normal";
+}
+
+function NSLUAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nslu/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 0;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSLUAny").innerHTML = "<a href=" + link +">" + "Any%: " + minutes + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+      $(document).ready(function() {
+  $("#NSLUClick").click(function() {
+	$("#NSLUDis").toggle();
+	$("#NSLUAny").toggle();
+	$("#NSLUAllCastles").toggle();
+	$("#NSLU100").toggle();
+  });
+  });
+}
+function NSLUAllCastlesF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nslu/category/All_Castles?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSLUAllCastles").innerHTML = "<a href=" + link +">" + "All castles: " + hours + ":0"+ minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function NSLU100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nslu/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSLU100").innerHTML = "<a href=" + link +">" + "100%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+function NSMBNoPowerupsF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/nsmbds/category/No_Powerups?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("NSMBNoPowerups").innerHTML = "<a href=" + link +">" + "No Powerups: " + minutes + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+</script>
+</div>
+
+<div id="NSMBUD">
+<p>New Super Mario Bros. U Deluxe  <a href="https://www.speedrun.com/nsmbudx"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Bros.%20Deluxe"><i class="fab fa-twitch"></i></a> <a href="https://discord.gg/VDfrMe7"><i class='fab fa-discord'></i></a></p>
+</div>
+
+<div id="SM3DL">
+<p>Super Mario 3D Land <a class="hoverNow" id="SM3DLClick" onclick="SM3DLAnyF(); SM3DLAnyWarplessF(); SM3DLSpecialF(); SM3DL100F();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/sm3dl"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%203D%20Land"><i class="fab fa-twitch"></i></a></p>
+<p id="SM3DLAny"></p>
+<p id="SM3DLAnyWarpless"></p>
+<p id="SM3DLSpecial"></p>
+<p id="SM3DL100"></p>
+<script>
+function SM3DLAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm3dl/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 0;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SM3DLAny").innerHTML = "<a href=" + link +">" + "Any%: " + minutes + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+      $(document).ready(function() {
+  $("#SM3DLClick").click(function() {
+	$("#SM3DLAny").toggle();
+	$("#SM3DLAnyWarpless").toggle();
+	$("#SM3DLSpecial").toggle();
+	$("#SM3DL100").toggle();
+  });
+  });
+}
+function SM3DLAnyWarplessF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm3dl/category/Any_Warpless?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SM3DLAnyWarpless").innerHTML = "<a href=" + link +">" + "Any% Warpless: " + hours + 
+				":0" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function SM3DLSpecialF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm3dl/category/Special_Ending?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 2;
+				var minNew1 = Math.abs(120 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SM3DLSpecial").innerHTML = "<a href=" + link +">" + "Special Ending: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+function SM3DL100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm3dl/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 5;
+				var minNew1 = Math.abs(300 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SM3DL100").innerHTML = "<a href=" + link +">" + "100%: " + hours + ":0" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+</script>
+</div>
+
+<div id="SM3DW">
+<p>Super Mario 3D World <a class="hoverNow" id="SM3DWClick" onclick="SM3DWAnyF(); SM3DW380F(); SM3DW100F();"><i class='fas fa-angle-down'></i></a> <a href="https://www.speedrun.com/sm3dw"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%203D%20World"><i class="fab fa-twitch"></i></a> </p>
+<p id="SM3DWAny"></p>
+<p id="SM3DW380"></p>
+<p id="SM3DW100"></p>
+<script>
+function SM3DWAnyF() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm3dw/category/Any?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 1;
+				var minNew1 = Math.abs(60 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SM3DWAny").innerHTML = "<a href=" + link +">" + "Any%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+      $(document).ready(function() {
+  $("#SM3DWClick").click(function() {
+	$("#SM3DWAny").toggle();
+	$("#SM3DW380").toggle();
+	$("#SM3DW100").toggle();
+  });
+  });
+}
+function SM3DW380F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm3dw/category/380_Stars?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 3;
+				var minNew1 = Math.abs(180 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SM3DW380").innerHTML = "<a href=" + link +">" + "380 stars: " + hours + 
+				":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+function SM3DW100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm3dw/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 7;
+				var minNew1 = Math.abs(420 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SM3DW100").innerHTML = "<a href=" + link +">" + "100%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+function SM3DL100F() {
+ $.ajax({
+            type: "POST", //rest Type
+            dataType: 'jsonp', //mispelled
+            url: "https://www.speedrun.com/api/v1/leaderboards/sm3dl/category/100?top=1",
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                //document.write(msg.data.runs[0].place);    
+				// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+				var time = msg.data.runs[0].run['times'].primary_t;
+				var minutes = Math.floor(time / 60);
+				var seconds = time - minutes * 60;
+				var link = msg.data.runs[0].run.weblink;
+				var hours = 5;
+				var minNew1 = Math.abs(300 - minutes);
+				var runner = msg.data.runs[0].run['players'][0].uri;
+				var date = msg.data.runs[0].run.date;
+				//$(document.body).append("70 star: "+ minutes + ":" + seconds);
+								$.ajax({
+							type: "POST",
+							dataType: 'jsonp',
+							url: runner,
+							async: false,
+							contentType: "application/json; charset=utf-8",
+							success: function (msg) {
+								//document.write(msg.data.runs[0].place);    
+								// $(document.body).append(msg.data.runs[0].run['times'].primary_t);
+								var name = msg.data.names.international;
+
+
+				document.getElementById("SM3DL100").innerHTML = "<a href=" + link +">" + "100%: " + hours + ":" + minNew1 + ":" + seconds +  " by " + name + " on " + date +"</a>";
+				
+								
+
+							}
+				 });
+
+
+            }
+ }); // Just an example
+}
+
+</script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+</div>
+
+<p>Super Mario Maker <a href="https://www.speedrun.com/smm"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Maker"><i class="fab fa-twitch"></i></a> </p>
+
+<p>Super Mario Run <a href="https://www.speedrun.com/smr"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Run"><i class="fab fa-twitch"></i></a> <a href="https://itunes.apple.com/us/app/super-mario-run/id1145275343"><i class="fab fa-apple"></i></a> <a href="https://play.google.com/store/apps/details?id=com.nintendo.zara"><i class="fab fa-google-play"></i></a> </p>
+
+<p class="hoverThis">Super Mario Odyssey <a href="https://www.speedrun.com/smo"><br /><i class="fa fa-trophy"></i></a> <a href="https://www.twitch.tv/directory/game/Super%20Mario%20Odyssey"><i class="fab fa-twitch"></i></a> <a href="http://www.discord.gg/smospeedruns"><i class='fab fa-discord'></i></a> <a href="https://smospeedtech.com/"><i class="fas fa-external-link-square-alt"></i></a></p>
+
+
+
+
+<table style="width:100%" id="sideWatchDiv" class="rounded">
+<center><h5><i class="ionicons ion-radio-waves"></i> Watch Live</h5></center>
+  <tr>
+    <td><a href="https://www.twitch.tv/directory/all/tags/7cefbf30-4c3e-4aa7-99cd-70aabb662f27"><!--<i class="fa fa-twitch"></i>--> Twitch Speedrun</a></td>
+
+  </tr>
+  <tr>
+    <td><a href="http://speedrunslive.com/"><!--<img src="https://i.imgtc.com/ULmPzog.png" /> -->SpeedRunsLive</a></td>
+  </tr>
+   <tr>
+    <td><a href="http://pksage.com/speedruns/"><!--<img src="https://i.imgur.com/I8LgQBD.png" /> -->All Speedruns Tracker</a></td>
+  </tr>
+     <tr>
+    <td><a href="https://www.speedrun.com/streams"><!--<img src="https://i.imgur.com/I8LgQBD.png" /> -->Speedrun.com/streams</a></td>
+  </tr>
+</table>
+<hr />
+
+<table style="width:100%" id="sideWatchDiv" class="rounded">
+<center><h6 style="color:#CFCFCF;"><a href="https://smash.gg/league/gsa-league-standings/details"><img  title="GSA" style="border-radius: 15px; padding:2px;"src="https://i.imgur.com/DypUSVD.png" /></a> <br /><a href="https://www.twitch.tv/speedrun"><i class="fab fa-twitch"></i></a> <a href="https://www.youtube.com/channel/UC22lgsPNuxoOykjrjfXD18A"><i class="fab fa-youtube"></i></a> <a href="https://twitter.com/GlobalSpeedrun"><i class='fab fa-twitter'></i></a> <a href="https://discordapp.com/invite/zM7amZQ"><i class='fab fa-discord'></i></a> </h6>
+</center>
+
+    </table>
+  <center><h6 style="color:#CFCFCF;"><a href="https://speedgaming.challonge.com/"><img  title="SpeedGaming" style="border-radius: 15px;padding:2px;"src=" https://i.imgur.com/BhBYi9K.png" /></a><br /> <a href="http://twitch.tv/speedgaming"><i class="fab fa-twitch"></i></a> <a href="https://www.youtube.com/channel/UC-lm_blkZ_ujmRSwYcJY2ow"><i class="fab fa-youtube"></i></a> <a href="http://twitter.com/SpeedGamingShow"><i class='fab fa-twitter'></i></a></h6></center>
+  <table>
+     
+  </table>
+ 
+	
+<hr />
+<table style="width:100%" id="sideWatchDiv" class="rounded">
+<center><h5><i class="ionicons ion-ios-download-outline"></i> Downloads</h5></center>
+  <tr>
+    <td><a href="http://livesplit.org/downloads/"> LiveSplit</a></td>
+
+  </tr>
+  <tr>
+    <td><a href="https://github.com/Nitrofski/WSplit/releases"> WSplit</a></td>
+  </tr>
+    <tr>
+    <td><a href="https://github.com/gered/Llanfair/releases"> Llanfair</a></td>
+  </tr>
+   <tr>
+    <td><a href="http://www.amarectv.com/download_amarectv.htm"> AmaRecTV</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.xsplit.com/#broadcaster"> XSplit</a></td>
+  </tr>
+
+  
+</table>
+<hr />
+<table style="width:100%" id="sideWatchDiv" class="rounded">
+<center><h5><i class="fab fa-twitch"></i> Twitch Extensions</h5></center>
+  <tr>
+    <td><a href="https://www.frankerfacez.com/"> FrankerFaceZ</a></td>
+
+  </tr>
+  <tr>
+    <td><a href="https://ffzap.com/">FrankerFaceZ Add-On Pack</a></td>
+  </tr>
+  <tr>
+    <td><a href="http://nightdev.com/betterttv/"> BetterTTV</a></td>
+  </tr>
+    <tr>
+    <td><a href="https://github.com/Ndragomirov/twitch-now"> Twitch Now</a></td>
+  </tr>
+  
+</table>
+<hr />
+<table style="width:100%" id="sideWatchDiv" class="rounded">
+<center><h5><i class="far fa-clock"></i> Splits/Times</h5></center>
+  <tr>
+    <td><a href="http://www.speedrun.com/"> Speedrun.com</a> <a href="https://twitter.com/speedruncom"><i class='fab fa-twitter'></i></a></td>
+
+  </tr>
+    <tr>
+    <td><a href="https://www.reddit.com/r/speedrun/"> /r/speedrun/</a> <a href="https://discordapp.com/invite/0SarUu3yU9CibytG"><i class='fab fa-discord'></i></a></td>
+
+  </tr>
+
+  <tr>
+    <td><a href="http://tasvideos.org/">TASVideos.org</a> <a href="https://www.youtube.com/channel/UCFKeJVmqdApqOS8onQWznfA"><i class="fab fa-youtube"></i></a> <a href="https://twitter.com/TASVideos"><i class='fab fa-twitter'></i></a></td>
+  </tr>
+  <tr>
+    <td><a href="http://speeddemosarchive.com/"> SDA</a> <a href="https://www.youtube.com/user/SpeedDemosArchiveSDA"><i class="fab fa-youtube"></i></a>  <a href="http://twitter.com/sdaspeedruns"><i class='fab fa-twitter'></i></a></td>
+  </tr>
+    <tr>
+    <td><a href="https://splits.io/"> Splits I/O</a> <a href="https://discord.gg/yGaxX39"><i class='fab fa-discord'></i></a></td>
+  </tr>
+      <tr>
+    <td><a href="http://www.pbtracker.net/"> PB Tracker</a></td>
+  </tr>
+        <tr>
+    <td><a href="https://en.wikipedia.org/wiki/List_of_Super_Mario_speedrunning_records"> Wikipedia</a></td>
+  </tr>
+</table>
+
+
+
+<table style="width:100%" id="sideWatchDiv" class="rounded">
+<center><h5><i class="ionicons ion-calendar"></i> Events</h5></center>
+  <tr>
+    <td><a href="http://www.speedrunslive.com/races/#!/live"> SRL Races</a>  <a href="https://twitter.com/speedrunslive"><i class='fab fa-twitter'></i></a> <a href="https://discordapp.com/invite/jTs9rFn"><i class='fab fa-discord'></i></a></td>
+
+  </tr>
+  <tr>
+    <td><a href="https://goo.gl/v8Xw86"> GSA Speedrun calendar</a></td>
+
+  </tr>
+
+  <tr>
+    <td><a href="http://speedgaming.org/events/"> SpeedGaming</a></td>
+  </tr>
+    <tr>
+    <td><a href="https://horaro.org/"> Horaro.org</a></td>
+  </tr>
+    <tr>
+    <td><a href="https://www.reddit.com/r/speedrun/wiki/threads"> Older marathon VODs</a></td>
+  </tr>
+          <tr>
+    <td><a href="https://gamesdonequick.com/"> GDQ</a> <a href="https://twitch.tv/gamesdonequick"><i class="fab fa-twitch"></i></a> <a href="https://www.youtube.com/user/gamesdonequick"><i class="fab fa-youtube"></i></a> <a href="https://twitter.com/GamesDoneQuick"><i class='fab fa-twitter'></i></a> <a href="https://discord.gg/gamesdonequick"><i class='fab fa-discord'></i></a></td>
+  </tr>
+        <tr>
+    <td><a href="http://gdqvods.com/"> GDQ VODs</a></td>
+  </tr>
+      <tr>
+    <td><a href="https://mariospeedruns.blogspot.com/p/games-done-quick.html"> GDQ archives</a></td>
+  </tr>
+        <tr>
+    <td><a href="https://esamarathon.com/"> ESA Marathon</a> <a href="https://www.twitch.tv/esamarathon"><i class="fab fa-twitch"></i></a> <a href="https://www.youtube.com/user/EuroSpeedAssembly"><i class="fab fa-youtube"></i></a> <a href="https://www.twitter.com/esamarathon"><i class='fab fa-twitter'></i></a> <a href="https://www.discord.gg/0TZ2NlveujtasAqb"><i class='fab fa-discord'></i></a> </td>
+  </tr>
+          <tr>
+    <td><a href="https://www.rpglimitbreak.com/"> RPG Limit Break</a> <a href="https://www.twitch.tv/rpglimitbreak"><i class="fab fa-twitch"></i></a> <a href="https://www.youtube.com/channel/UCJn8IWyQmWEIfpVjX7o2VnQ"><i class="fab fa-youtube"></i></a> <a href="https://twitter.com/rpglimitbreak"><i class='fab fa-twitter'></i></a> </td>
+  </tr>
+</table>
+
+<hr />
+<table style="width:100%" id="sideWatchDiv" class="rounded">
+<center><h5><img src="https://i.imgur.com/h8StEYa.png" /> Mario Sites</h5></center>
+    <tr>
+    <td><a href="http://mario.nintendo.com/">Nintendo</a> <a href="https://www.twitch.tv/nintendo"><i class="fab fa-twitch"></i></a> <a href="https://www.youtube.com/user/Nintendo"><i class="fab fa-youtube"></i></a> <a href="https://twitter.com/NintendoAmerica"><i class='fab fa-twitter'></i></a> </td>
+  </tr>
+  <tr>
+    <td><a href="https://supermario.nintendo.com/">Super Mario Nintendo</a></td>
+  </tr>
+  <tr>
+    <td><a href="https://www.mariowiki.com/Main_Page"> Mario Wiki</a> <a href="https://twitter.com/smwikiofficial"><i class='fab fa-twitter'></i></a></td>
+
+  </tr>
+    <tr>
+    <td><a href="https://www.mariowiki.com/Category:Upcoming_Games">Upcoming Mario games</a></td>
+  </tr>
+  <tr>
+    <td><a href="http://themushroomkingdom.net/">The Mushroom Kingdom</a></td>
+  </tr>
+    <tr>
+    <td><a href="https://www.reddit.com/r/Mario/">/r/Mario/</a> <a href="https://discordapp.com/invite/mario"><i class='fab fa-discord'></i></a></td>
+  </tr>
+
+    <tr>
+    <td><a href="https://mkwrs.com/"> Mario Kart World Records</a></td>
+  </tr>
+  <tr>
+    <td><a href="http://mariokart64.com/"> Mario Kart 64</a></td>
+  </tr>
+    <tr>
+    <td><a href="http://beckabney.com/mk64/"> Beck's MK64 Stuff</a></td>
+  </tr>
+      <tr>
+    <td><a href="https://www31.atwiki.jp/sm64/"> RTA SM64 Japanese Wiki</a></td>
+  </tr>
+        <tr>
+    <td><a href="https://sites.google.com/site/supermariorpgspeedruns/home"> SMRPG Speedruns Wiki</a></td>
+  </tr>
+          <tr>
+    <td><a href="http://yoshi.science/"> Yoshi's Island Wiki</a></td>
+  </tr>
+</table>
+
+
+
+  <center><p>June 2019</p></center>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>S</th>
+        <th>M</th>
+        <th>T</th>
+        <th>W</th>
+        <th>T</th>
+        <th>F</th>
+        <th>S</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/06/june-1-2019.html">1</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/06/june-2-2019.html">2</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/06/june-3-2019.html">3</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+     <!-- <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>-->
+    </tbody>
+  </table>
+  
+   <center><p>May 2019</p></center>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>S</th>
+        <th>M</th>
+        <th>T</th>
+        <th>W</th>
+        <th>T</th>
+        <th>F</th>
+        <th>S</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-1-2019.html">1</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-2-2019.html">2</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-3-2019.html">3</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-4-2019.html">4</a></td>
+        
+      </tr>
+      <tr>
+       
+        
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-5-2019.html">5</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-6-2019.html">6</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-7-2019.html">7</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-8-2019.html">8</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-9-2019.html">9</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-10-2019.html">10</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-11-2019.html">11</a></td>
+      </tr>
+      <tr>
+
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-12-2019.html">12</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-13-2019.html">13</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-14-2019.html">14</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-15-2019.html">15</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-16-2019.html">16</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-17-2019.html">17</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-18-2019.html">18</a></td>
+      </tr>
+      <tr>
+
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-19-2019.html">19</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-20-2019.html">20</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-21-2019.html">21</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-22-2019.html">22</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-23-2019.html">23</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-24-2019.html">24</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-25-2019.html">25</a></td>
+      </tr>
+      <tr>
+
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-26-2019.html">26</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-27-2019.html">27</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-28-2019.html">28</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-29-2019.html">29</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-30-2019.html">30</a></td>
+        <td><a href="https://mariospeedruns.blogspot.com/2019/05/may-30-2019.html">31</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+
+
+</div>
+
+
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+
+
+</!doctype>
